@@ -1,0 +1,20 @@
+apiVersion: skaffold/v4beta6 
+kind: Config
+
+build:
+  artifacts:
+    - image: mahmoudyahia/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
+deploy:
+  kubectl: {}
+
+manifests:
+  rawYaml:
+    - ./infra/k8s/*

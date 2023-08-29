@@ -5,4 +5,4 @@ COPY package.json .
 RUN npm install
 COPY . .
 
-CMD ["npm", "install"]
+CMD ["npm", "start"]
