@@ -1,5 +1,7 @@
 import { CustomError } from './custom-error';
 
+
+// ============= Server stops down with this error only!!!!
 export class BadRequestError extends CustomError {
   statusCode = 400;
 

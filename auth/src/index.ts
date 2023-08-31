@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors'; // to use throw inside async functions
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
