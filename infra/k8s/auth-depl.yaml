@@ -17,9 +17,16 @@ spec:
       containers:
       - name: auth
         image: mahmoudyahia/auth
+        env:
+        - name: JWT_KEY
+          valueFrom:
+            secretKeyRef: 
+              name: jwt-secret
+              key: JWT_KEY
         ports:
         - containerPort: 80
 
+#kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
 ---
 apiVersion: v1
 kind: Service

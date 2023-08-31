@@ -1,37 +1,46 @@
 import express, { Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from '../errors/request-validation-error';
+import jwt from 'jsonwebtoken';
+import { body } from 'express-validator';
 import { User } from '../models/user';
 import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest } from '../middlewares/validate-request';
 const router = express.Router();
 
-router.post(
-  '/api/users/signup',
-  [
-    body('email').trim().isEmail().withMessage('user must has a valid email'),
-    body('password')
-      .trim()
-      .isLength({ max: 20, min: 7 })
-      .withMessage('user must enter a password between 7 and 20 chars '),
-  ],
-  async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
+router
+  .route('/api/users/signup')
+  .post(
+    [
+      body('email').trim().isEmail().withMessage('user must has a valid email'),
+      body('password')
+        .trim()
+        .isLength({ max: 20, min: 7 })
+        .withMessage('user must enter a password between 7 and 20 chars '),
+    ],
+    validateRequest,
+    async (req: Request, res: Response) => {
+      const { email, password } = req.body;
+
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        throw new BadRequestError('email in use');
+      }
+
+      const user = User.build({ email, password });
+      await user.save();
+
+      // Generate JWT
+      const jwtuser = jwt.sign(
+        { id: user.id, email: user.email },
+        process.env.JWT_KEY!
+      );
+
+      // send jwt in the token
+      req.session = {
+        jwt: jwtuser,
+      };
+
+      res.status(201).json(user);
     }
-
-    const { email, password } = req.body;
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      throw new BadRequestError('email in use');
-    }
-
-    const user = User.build({ email, password });
-    await user.save();
-
-    res.status(201).json(user);
-  }
-);
+  );
 
 export { router as signupRouter };
