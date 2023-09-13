@@ -7,8 +7,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signoutRouter } from './routes/signout';
 import { signinRouter } from './routes/signin';
 import { signupRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { errorHandler, NotFoundError } from '@m-ticketing/common';
 
 const app = express();
 app.use(bodyParser.json());
