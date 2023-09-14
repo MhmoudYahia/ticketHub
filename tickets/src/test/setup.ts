@@ -1,6 +1,4 @@
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
-import request from 'supertest';
-import { app } from '../app';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
@@ -35,7 +33,7 @@ afterAll(async () => {
 
 global.signin = () => {
   const payload = {
-    id: 'nvproencpenv',
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: 'test@example.com',
   };
   const cookie = jwt.sign(payload, process.env.JWT_KEY!);

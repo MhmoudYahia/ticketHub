@@ -5,7 +5,8 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@m-ticketing/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
-
+import { indexRouter } from './routes/index';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,6 +21,8 @@ app.use(
 app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexRouter);
+app.use(updateTicketRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
