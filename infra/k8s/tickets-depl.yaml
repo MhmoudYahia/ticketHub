@@ -18,6 +18,14 @@ spec:
         - name: tickets
           image: mahmoudyahia/tickets
           env:
+            - name: NATS_ClIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_CLUSTER_ID
+              value: 'ticketing'
+            - name: NATS_URL
+              value: 'https://nats-srv:4222'
             - name: MONGO_URI
               value: 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY

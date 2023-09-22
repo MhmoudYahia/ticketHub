@@ -21,8 +21,8 @@ app.use(
 app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
-app.use(indexRouter);
 app.use(updateTicketRouter);
+app.use(indexRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
