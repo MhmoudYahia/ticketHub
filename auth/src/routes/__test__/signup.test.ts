@@ -8,6 +8,8 @@ it('returns 201 on a successful signup', async () => {
     .send({
       email: 'user@example.com',
       password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
     })
     .expect(201);
 });
@@ -17,7 +19,9 @@ it('returns 400 on an invalid password (signup)', async () => {
     .post('/api/users/signup')
     .send({
       email: 'user@example.com',
-      password: 'p',
+      password: 'pass',
+      passwordConfirm: 'pass',
+      name: 'user',
     })
     .expect(400);
 });
@@ -26,8 +30,21 @@ it('returns 400 on an invalid email (signup)', async () => {
   return request(app)
     .post('/api/users/signup')
     .send({
-      email: 'userexample.com',
       password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
+    })
+    .expect(400);
+});
+
+it('returns 400 on not identical passwords', async () => {
+  return request(app)
+    .post('/api/users/signup')
+    .send({
+      email: 'user@example.com',
+      password: 'password',
+      passwordConfirm: 'pssword',
+      name: 'user',
     })
     .expect(400);
 });
@@ -51,20 +68,35 @@ it('returns 400 on a missing password or email (signup)', async () => {
 it('dissallowing multiple emails', async () => {
   await request(app)
     .post('/api/users/signup')
-    .send({ email: 'user@example.com', password: 'paswprd' })
+    .send({
+      email: 'user@example.com',
+      password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
+    })
     .expect(201);
 
   await request(app)
     .post('/api/users/signup')
-    .send({ email: 'user@example.com', password: 'paswprd' })
+    .send({
+      email: 'user@example.com',
+      password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
+    })
     .expect(400);
 });
 
 it('sets a cookie after successfull signup', async () => {
   const res = await request(app)
     .post('/api/users/signup')
-    .send({ email: 'user@example.com', password: 'paswprd' })
+    .send({
+      email: 'user@example.com',
+      password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
+    })
     .expect(201);
 
- expect(res.get('Set-Cookie')).toBeDefined();
+  expect(res.get('Set-Cookie')).toBeDefined();
 });

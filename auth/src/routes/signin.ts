@@ -18,17 +18,20 @@ router
     async (req: Request, res: Response) => {
       const { email, password } = req.body;
 
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne({ email }).select('password');
       if (!existingUser) throw new BadRequestError('Invalid Credentials');
 
       const passwordMatch = await Password.compare(
         existingUser.password,
         password
       );
+
       if (!passwordMatch) throw new BadRequestError('Invalid Credentials');
 
       const userToken = jwt.sign(
-        { id: existingUser.id, email: existingUser.email },
+        {
+          id: existingUser.id,
+        },
         process.env.JWT_KEY!
       );
 
@@ -37,7 +40,7 @@ router
         jwt: userToken,
       };
 
-      res.status(201).json(existingUser);
+      res.status(200).json(existingUser);
     }
   );
 

@@ -71,7 +71,6 @@ it('ticket is published after creation', async () => {
     .set('Cookie', global.signin())
     .send({ title: 'title', price: 50 })
     .expect(201);
-    console.log(natsWrapper);
     
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();

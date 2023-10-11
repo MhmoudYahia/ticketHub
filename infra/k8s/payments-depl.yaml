@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-depl
+  labels:
+    app: payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+  template:
+    metadata:
+      labels:
+        app: payments
+    spec:
+      containers:
+        - name: payments
+          image: mahmoudyahia/payments
+          env:
+            - name: NATS_ClIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_CLUSTER_ID
+              value: 'ticketing'
+            - name: NATS_URL
+              value: 'https://nats-srv:4222'
+            - name: MONGO_URI
+              value: 'mongodb://payments-mongo-srv:27017/payments'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: PAYPAL_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: paypal-secret
+                  key: PAYPAL_CLIENT_ID
+            - name: PAYPAL_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: paypal-secret2
+                  key: PAYPAL_CLIENT_SECRET           
+          ports:
+            - containerPort: 80
+
+#kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-srv
+spec:
+  selector:
+    app: payments
+  ports:
+    - name: payments-port
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

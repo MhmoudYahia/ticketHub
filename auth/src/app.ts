@@ -7,7 +7,9 @@ import { currentUserRouter } from './routes/current-user';
 import { signoutRouter } from './routes/signout';
 import { signinRouter } from './routes/signin';
 import { signupRouter } from './routes/signup';
-import { errorHandler, NotFoundError } from '@m-ticketing/common';
+import { currentUser, errorHandler, NotFoundError } from '@m-ticketing/common';
+import { updateCurrentUserRouter } from './routes/update';
+import { changePasswordRouter } from './routes/change-password';
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,10 +21,13 @@ app.use(
   })
 );
 
+app.use(currentUser);
 app.use(currentUserRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 app.use(signinRouter);
+app.use(updateCurrentUserRouter);
+app.use(changePasswordRouter);
 
 app.all('*', () => {
   throw new NotFoundError();

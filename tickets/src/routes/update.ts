@@ -5,6 +5,7 @@ import {
   requireAuth,
   NotAuthorizedError,
   validateRequest,
+  BadRequestError,
 } from '@m-ticketing/common';
 import { body } from 'express-validator';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -33,6 +34,10 @@ router
         throw new NotFoundError();
       }
 
+      if (ticket.orderId) {
+        throw new BadRequestError('ticket is reserved');
+      }
+
       if (ticket.userId !== req.currentUser!.id) {
         throw new NotAuthorizedError();
       }
@@ -47,6 +52,7 @@ router
         title: ticket.title,
         price: ticket.price,
         userId: ticket.userId,
+        version: ticket.version,
       });
 
       res.status(200).json({ ticket });

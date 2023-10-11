@@ -1,0 +1,137 @@
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+* {
+  font-family: 'Roboto', sans-serif;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #dedede;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+    border-radius: 4px;
+  }
+}
+
+#menu-appbar ::after {
+  content: '';
+}
+
+.dialog-title {
+  font-size: 22px !important;
+  text-align: center;
+  background-color: #1976d2;
+  margin-bottom: 50px !important; 
+  color: white;
+  text-transform: uppercase;
+}
+/* signup css start */
+.css-1oqqzyl-MuiContainer-root {
+  max-width: 100% !important;
+}
+.css-15ejsu7-MuiContainer-root {
+  max-width: 100% !important;
+}
+.background-radial-gradient {
+  background-color: hsl(218, 41%, 15%);
+  background-image: radial-gradient(100% circle at 0% 0%,
+      hsl(218, 41%, 35%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%),
+    radial-gradient(1250px circle at 100% 100%,
+      hsl(218, 41%, 45%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%);
+}
+
+#radius-shape-1 {
+  height: 220px;
+  width: 220px;
+  top: -60px;
+  left: -130px;
+  background: radial-gradient(#44006b, #ad1fff);
+  overflow: hidden;
+}
+
+#radius-shape-2 {
+  border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+  bottom: -60px;
+  right: -110px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(#44006b, #ad1fff);
+  overflow: hidden;
+}
+
+.bg-glass {
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  backdrop-filter: saturate(200%) blur(25px);
+}
+
+/* signup css end */
+
+
+/*signin css start*/
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+  .h-custom {
+  height: 100%;
+  }
+}
+
+/*signin css end*/
+
+
+/*profile css start*/
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #f6d365;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+/*profile css end*/
+
+.alert {
+  position: fixed;
+  left: 50%;
+  top: 64px;
+  transform: translateX(-50%);
+  box-shadow: 0 0 89px 18px rgb(0, 0, 0, 0.5) !important;
+  animation-name: alert;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  z-index: 1500;
+  padding: 0 !important;
+}
+
+@keyframes alert {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 1;
+    top: 64px;
+  }
+}

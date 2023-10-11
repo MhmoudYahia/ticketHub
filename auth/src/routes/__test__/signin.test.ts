@@ -17,6 +17,8 @@ it('fails when password is wrong', async () => {
     .send({
       email: 'test@example.com',
       password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
     })
     .expect(201);
 
@@ -24,7 +26,7 @@ it('fails when password is wrong', async () => {
     .post('/api/users/signin')
     .send({
       email: 'test@example.com',
-      password: 'passwordjhvuv',
+      password: 'passwkkkkord',
     })
     .expect(400);
 });
@@ -35,6 +37,8 @@ it('sets a cookie on a successfull signin', async () => {
     .send({
       email: 'test@example.com',
       password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
     })
     .expect(201);
 
@@ -44,7 +48,7 @@ it('sets a cookie on a successfull signin', async () => {
       email: 'test@example.com',
       password: 'password',
     })
-    .expect(201);
+    .expect(200);
 
   expect(res.get('Set-Cookie')).toBeDefined();
 });

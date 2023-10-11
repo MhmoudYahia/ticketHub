@@ -2,7 +2,7 @@ apiVersion: skaffold/v4beta6
 kind: Config
 
 build:
-  local: 
+  local:
     push: false
 
   artifacts:
@@ -30,7 +30,30 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-
+    - image: mahmoudyahia/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
+    - image: mahmoudyahia/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: mahmoudyahia/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
 deploy:
   kubectl: {}
 

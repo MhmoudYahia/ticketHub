@@ -35,7 +35,12 @@ afterAll(async () => {
 global.signin = async () => {
   const authRes = await request(app)
     .post('/api/users/signup')
-    .send({ email: 'user@example.com', password: 'password' })
+    .send({
+      email: 'user@example.com',
+      password: 'password',
+      passwordConfirm: 'password',
+      name: 'user',
+    })
     .expect(201);
 
   const cookie = authRes.get('Set-Cookie');

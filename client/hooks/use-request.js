@@ -1,3 +1,4 @@
+import { Alert, AlertTitle } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -12,18 +13,15 @@ const useRequest = ({ method, url, body, onSuccess }) => {
       }
       return Response.data;
     } catch (error) {
-      console.log(
-        error
-      );
       setErrors(
-        <div className="alert alert-danger">
-          <h4>Ooopps...</h4>
+        <Alert severity="error">
+          <AlertTitle>Ooopps...</AlertTitle>
           <ul className="my-0">
             {error.response.data.errors.map((error) => (
               <li key={error.message}>{error.message}</li>
             ))}
           </ul>
-        </div>
+        </Alert>
       );
     }
   };
