@@ -33,6 +33,16 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+            - name: PAYPAL_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: paypal-secret
+                  key: PAYPAL_CLIENT_ID
+            - name: PAYPAL_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: paypal-secret2
+                  key: PAYPAL_CLIENT_SECRET         
           ports:
             - containerPort: 80
 

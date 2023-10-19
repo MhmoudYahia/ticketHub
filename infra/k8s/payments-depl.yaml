@@ -18,6 +18,8 @@ spec:
         - name: payments
           image: mahmoudyahia/payments
           env:
+            - name: NODE_ENV
+              value: development
             - name: NATS_ClIENT_ID
               valueFrom:
                 fieldRef:

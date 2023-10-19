@@ -11,7 +11,6 @@ import store from '../redux/store';
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-     
       <Provider store={store}>
         <Header currentUser={currentUser} />
         <Component currentUser={currentUser} {...pageProps} />
@@ -26,7 +25,10 @@ AppComponent.getInitialProps = async (appContext) => {
 
   let pageProps = {};
   if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    pageProps = await appContext.Component.getInitialProps(
+      appContext.ctx,
+      client
+    );
   }
   return {
     pageProps,

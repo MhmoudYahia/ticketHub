@@ -12,6 +12,7 @@ import { Ticket } from '../models/ticket';
 import { Order } from '../models/order';
 import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
+import * as paypal from '../utils/paypal';
 
 const router = express.Router();
 
@@ -52,6 +53,7 @@ router.route('/api/orders').post(
       expiresAt: expiration,
     });
     await order.save();
+
 
     //publish the event
     await new OrderCreatedPublisher(natsWrapper.client).publish({

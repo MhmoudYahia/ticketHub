@@ -17,7 +17,9 @@ spec:
       containers:
         - name: client
           image: mahmoudyahia/client-ticketing
-
+          env:
+            - name: NEXT_PUBLIC_PAYPAL_CLIENT_ID
+              value: ATQD5CcRw9GXtLi2jtK6zyV6UltUTGvXFXcl82JvhJCmv-pIp5YvwwRsJ30vzEC5IUPDCyLYLRrPT1MB
 ---
 apiVersion: v1
 kind: Service

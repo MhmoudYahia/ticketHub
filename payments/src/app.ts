@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@m-ticketing/common';
 import { createChargeRouter } from './routes/new';
+import { paypalRouter } from './routes/paypal';
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.use(
 
 app.use(currentUser);
 app.use(createChargeRouter);
+app.use(paypalRouter);
 
 app.all('*', () => {
   throw new NotFoundError();

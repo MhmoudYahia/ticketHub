@@ -14,7 +14,7 @@ const useRequest = ({ method, url, body, onSuccess }) => {
       return Response.data;
     } catch (error) {
       setErrors(
-        <Alert severity="error">
+        <Alert severity="error" sx={{ margin: '15px 0px' }}>
           <AlertTitle>Ooopps...</AlertTitle>
           <ul className="my-0">
             {error.response.data.errors.map((error) => (
