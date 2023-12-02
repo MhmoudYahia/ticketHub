@@ -18,6 +18,12 @@ spec:
         - name: auth
           image: mahmoudyahia/auth
           env:
+            - name: ReCAPTCHA_SECRETKEY
+              value: 6LfGwe8oAAAAANAx57g_Z_XJg5S8pMdGKsPUGF_Y
+            - name: CLIENT_ID_GOOGLE
+              value: '720992252486-tkrchpqc2qp40ntodjjtb5nsmqpqfc51.apps.googleusercontent.com'
+            - name: CLIENT_SECRET_GOOGLE
+              value: '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'
             - name: MONGO_URI
               value: 'mongodb://auth-mongo-srv:27017/auth'
             - name: JWT_KEY

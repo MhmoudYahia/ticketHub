@@ -67,6 +67,14 @@ const Header = ({ currentUser }) => {
       label: 'Sign In',
       href: 'https://ticketing.dev/auth/signin',
     },
+    currentUser && {
+      label: 'My Orders',
+      href: 'https://ticketing.dev/orders',
+    },
+    currentUser && {
+      label: 'Sell Tickets',
+      href: 'https://ticketing.dev/tickets/new',
+    },
   ]
     .filter((link) => link)
     .map(({ label, href }) => {
@@ -146,9 +154,9 @@ const Header = ({ currentUser }) => {
                   onClick={handleCloseNavMenu}
                   sx={{ display: 'flex', alignItems: 'center' }}
                 >
-                  <Typography marginRight="5px">
+                  {/* <Typography marginRight="5px">
                     <LockOutlined color="#0020ac" />
-                  </Typography>
+                  </Typography> */}
                   {page}
                 </MenuItem>
               ))}
@@ -185,9 +193,9 @@ const Header = ({ currentUser }) => {
                   alignItems: 'center',
                 }}
               >
-                <Typography marginRight="5px">
+                {/* <Typography marginRight="5px">
                   <LockOutlined color="#0020ac" />
-                </Typography>
+                </Typography> */}
                 {page}
               </Button>
             ))}

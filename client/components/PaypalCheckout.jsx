@@ -25,13 +25,19 @@ export const PayPalCheckout = ({ ticketId, ticketPrice, orderId }) => {
       });
   };
   const onApprove = async (data) => {
-    await fetch(`/api/payments`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ orderId, paypalId: data.orderID }),
-    });
+    // TODO: if the order is already completed, it cant be selled again!!!
+    try {
+      await fetch(`/api/payments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ orderId, paypalId: data.orderID }),
+      });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
 
     return fetch(`/api/payments/${data.orderID}/capture`, {
       method: 'POST',

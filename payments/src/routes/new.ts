@@ -42,6 +42,7 @@ router
       if (order.status == OrderStatus.Complete) {
         throw new BadRequestError("can't pay a complete order");
       }
+      
 
       const payment = Payment.build({
         orderId: order.id,

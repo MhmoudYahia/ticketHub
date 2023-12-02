@@ -1,4 +1,5 @@
 import {
+  BadRequestError,
   NotAuthorizedError,
   NotFoundError,
   requireAuth,
@@ -22,6 +23,14 @@ router
     }
     if (order.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
+    }
+
+    if (order.status === OrderStatus.Complete) {
+      throw new BadRequestError("Can't delete completed order");
+    }
+
+    if (order.status === OrderStatus.Cancelled) {
+      throw new BadRequestError('Order allready Deleted');
     }
 
     // update the status to cancelled

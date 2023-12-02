@@ -48,6 +48,9 @@ const userSchema = new mongoose.Schema(
     jobTitle: {
       type: String,
     },
+    googleId: {
+      type: String,
+    },
     passwordChangedAt: Date,
     passwordResetExpires: Date,
     passwordResetToken: String,

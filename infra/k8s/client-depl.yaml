@@ -18,6 +18,8 @@ spec:
         - name: client
           image: mahmoudyahia/client-ticketing
           env:
+            - name: ReCAPTCHA_SITEKEY
+              value: 6LfGwe8oAAAAAFchFocTLNB_kjnxo0QJ0OBHK4Jl
             - name: NEXT_PUBLIC_PAYPAL_CLIENT_ID
               value: ATQD5CcRw9GXtLi2jtK6zyV6UltUTGvXFXcl82JvhJCmv-pIp5YvwwRsJ30vzEC5IUPDCyLYLRrPT1MB
 ---
