@@ -13,7 +13,7 @@ import {
   Link,
   Avatar,
 } from '@mui/material';
-import { Facebook, Twitter, LinkedIn, LockOutlined } from '@mui/icons-material';
+import { LockOutlined,Google } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { setAlertInfo, setShowAlert } from '../../redux/alertSlice';
 
@@ -21,7 +21,7 @@ const SignIn = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch =  useDispatch();
+  const dispatch = useDispatch();
   const { errors, doRequest } = useRequest({
     method: 'post',
     url: '/api/users/signin',
@@ -38,13 +38,20 @@ const SignIn = () => {
       setTimeout(() => {
         dispatch(setShowAlert(false));
       }, 3000);
-     
     },
   });
 
   const onSubmit = async (e) => {
     e.preventDefault();
     await doRequest();
+  };
+
+  const signWithGoogle = async () => {
+    const response = await fetch('/api/users/requestOauth-google', {
+      method: 'post',
+    });
+    const data = await response.json();
+    await router.push(data.url);
   };
 
   return (
@@ -164,16 +171,14 @@ const SignIn = () => {
                 Sign in with
               </Typography>
 
-              <IconButton size="medium" sx={{ mr: 2, color: '#1266f1' }}>
-                <Facebook />
-              </IconButton>
-
-              <IconButton size="medium" sx={{ mr: 2, color: '#1266f1' }}>
-                <Twitter />
-              </IconButton>
-
-              <IconButton size="medium" sx={{ mr: 2, color: '#1266f1' }}>
-                <LinkedIn />
+              <IconButton
+                component="a"
+                color="inherit"
+                className=""
+                sx={{ color: '#1266f1' }}
+                onClick={signWithGoogle}
+              >
+                <Google sx={{ fontSize: '1.5rem' }} />
               </IconButton>
             </div>
 

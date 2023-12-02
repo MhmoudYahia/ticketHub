@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import Router from 'next/router';
+import React, { useRef, useState } from 'react';
 import useRequest from '../../hooks/use-request';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRouter } from 'next/router';
+
 import {
   Button,
   Container,
@@ -11,17 +13,21 @@ import {
   Avatar,
   Typography,
 } from '@mui/material';
-import { GitHub, Facebook, LinkedIn, LockOutlined } from '@mui/icons-material';
+import { LockOutlined } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { setAlertInfo, setShowAlert } from '../../redux/alertSlice';
 
 const SignUp = ({}) => {
+  const router = useRouter();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const dispatch =  useDispatch();
+  const [gRecaptchaResponse, setGRecaptchaResponse] = useState('');
+
+  const recatchRef = useRef();
+  const dispatch = useDispatch();
 
   const { errors, doRequest } = useRequest({
     method: 'post',
@@ -31,9 +37,10 @@ const SignUp = ({}) => {
       password,
       passwordConfirm,
       name: `${firstName} ${lastName}`,
+      gRecaptchaResponse,
     },
     onSuccess: async () => {
-      await Router.push('/');
+      await router.push('/');
       dispatch(
         setAlertInfo({
           severity: 'success',
@@ -50,6 +57,10 @@ const SignUp = ({}) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     await doRequest();
+  };
+
+  const onChangeReCAPTCHA = (value) => {
+    setGRecaptchaResponse(value);
   };
 
   return (
@@ -133,7 +144,6 @@ const SignUp = ({}) => {
               <Typography width="100%" marginBottom="10px">
                 {errors}
               </Typography>
-
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <TextField
@@ -154,7 +164,6 @@ const SignUp = ({}) => {
                   />
                 </Grid>
               </Grid>
-
               <TextField
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -163,7 +172,6 @@ const SignUp = ({}) => {
                 label="Email"
                 variant="outlined"
               />
-
               <TextField
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -173,7 +181,6 @@ const SignUp = ({}) => {
                 variant="outlined"
                 type="password"
               />
-
               <TextField
                 value={passwordConfirm}
                 onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -183,45 +190,16 @@ const SignUp = ({}) => {
                 variant="outlined"
                 type="password"
               />
+              <ReCAPTCHA
+                sitekey="6LfGwe8oAAAAAFchFocTLNB_kjnxo0QJ0OBHK4Jl"
+                onChange={onChangeReCAPTCHA}
+                ref={recatchRef}
+              />
 
               <br />
               <Button onClick={onSubmit} variant="contained" fullWidth>
                 sign up
               </Button>
-
-              <div className="text-center" style={{ 'margin-bottom': '23px' }}>
-                <Typography variant="body1" marginTop="20px" gutterBottom>
-                  OR
-                </Typography>
-
-                <Button
-                  component="a"
-                  href="#"
-                  color="inherit"
-                  className=""
-                  sx={{ color: '#1266f1' }}
-                >
-                  <GitHub sx={{ fontSize: '1.5rem' }} />
-                </Button>
-                <Button
-                  component="a"
-                  href="#"
-                  color="inherit"
-                  className=""
-                  sx={{ color: '#1266f1' }}
-                >
-                  <LinkedIn sx={{ fontSize: '1.5rem' }} />
-                </Button>
-                <Button
-                  component="b"
-                  href="#"
-                  color="inherit"
-                  className=""
-                  sx={{ color: '#1266f1' }}
-                >
-                  <Facebook sx={{ fontSize: '1.5rem' }} />
-                </Button>
-              </div>
             </CardContent>
           </Card>
         </Grid>

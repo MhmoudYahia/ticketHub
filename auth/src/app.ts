@@ -10,6 +10,7 @@ import { signupRouter } from './routes/signup';
 import { currentUser, errorHandler, NotFoundError } from '@m-ticketing/common';
 import { updateCurrentUserRouter } from './routes/update';
 import { changePasswordRouter } from './routes/change-password';
+import { googleOauthRouter } from './routes/googleOauth';
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use(signupRouter);
 app.use(signinRouter);
 app.use(updateCurrentUserRouter);
 app.use(changePasswordRouter);
+app.use(googleOauthRouter);
 
 app.all('*', () => {
   throw new NotFoundError();

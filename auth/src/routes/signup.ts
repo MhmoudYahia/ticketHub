@@ -21,10 +21,14 @@ router.route('/api/users/signup').post(
       .trim()
       .custom((value, { req }) => value === req.body.password)
       .withMessage('passwords must match'),
+    body('gRecaptchaResponse')
+      .isString()
+      .notEmpty()
+      .withMessage('Recaptcha response is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { email, password, passwordConfirm, name } = req.body;
+    const { email, password, name, gRecaptchaResponse } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -34,7 +38,28 @@ router.route('/api/users/signup').post(
     const user = User.build({ email, password, name });
     await user.save();
 
-    // Generate JWT
+    try {
+      const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.ReCAPTCHA_SECRETKEY}&response=${gRecaptchaResponse}`;
+
+      const response = await fetch(verificationUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        if (!result.success) {
+          throw new BadRequestError('reCAPTCHA verification failed');
+        }
+      } else {
+        throw new BadRequestError('Error in reCAPTCHA verification');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+
     const jwtuser = jwt.sign(
       {
         id: user.id,
@@ -42,7 +67,6 @@ router.route('/api/users/signup').post(
       process.env.JWT_KEY!
     );
 
-    // send jwt in the token
     req.session = {
       jwt: jwtuser,
     };
@@ -52,4 +76,3 @@ router.route('/api/users/signup').post(
 );
 
 export { router as signupRouter };
-
