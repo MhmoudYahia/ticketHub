@@ -97,6 +97,7 @@ it('sets a cookie after successfull signup', async () => {
       name: 'user',
     })
     .expect(201);
+    
 
   expect(res.get('Set-Cookie')).toBeDefined();
 });
