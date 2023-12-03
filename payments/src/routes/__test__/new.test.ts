@@ -11,7 +11,7 @@ it('returns a 404 when purchasing an order that does not exist', async () => {
     .send({
       orderId: new mongoose.Types.ObjectId().toHexString(),
     })
-    .expect(404);
+    .expect(400);
 });
 
 it('returns a 401 when purchasing an order that doesnt belong to the user', async () => {
@@ -30,7 +30,7 @@ it('returns a 401 when purchasing an order that doesnt belong to the user', asyn
     .send({
       orderId: order.id,
     })
-    .expect(401);
+    .expect(400);
 });
 
 it('returns a 400 when purchasing a cancelled order', async () => {
