@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 import { DatabaseConnectionError } from '@m-ticketing/common';
 import { app } from './app';
 
-
 const start = async () => {
+  console.log('starting.....');
+
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
