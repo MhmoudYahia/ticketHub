@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev src/index.ts",
-    "test": "jest --watchAll --no-cache",
-    "test:ci":"jest"
+    "start": "(SET NODE_ENV=dev) & ts-node-dev src/index.ts",
+    "test": "(SET NODE_ENV=testing) & jest --watchAll --no-cache",
+    "test:ci":"(SET NODE_ENV=testing) & jest"
   },
   "jest": {
     "preset": "ts-jest",

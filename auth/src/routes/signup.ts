@@ -21,10 +21,6 @@ router.route('/api/users/signup').post(
       .trim()
       .custom((value, { req }) => value === req.body.password)
       .withMessage('passwords must match'),
-    body('gRecaptchaResponse')
-      .isString()
-      .notEmpty()
-      .withMessage('Recaptcha response is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -38,28 +34,29 @@ router.route('/api/users/signup').post(
     const user = User.build({ email, password, name });
     await user.save();
 
-    try {
-      const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.ReCAPTCHA_SECRETKEY}&response=${gRecaptchaResponse}`;
+    if (process.env.NODE_ENV !== 'testing') {
+      try {
+        const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.ReCAPTCHA_SECRETKEY}&response=${gRecaptchaResponse}`;
 
-      const response = await fetch(verificationUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+        const response = await fetch(verificationUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      if (response.ok) {
-        const result = await response.json();
-        if (!result.success) {
-          throw new BadRequestError('reCAPTCHA verification failed');
+        if (response.ok) {
+          const result = await response.json();
+          if (!result.success) {
+            throw new BadRequestError('reCAPTCHA verification failed');
+          }
+        } else {
+          throw new BadRequestError('Error in reCAPTCHA verification');
         }
-      } else {
-        throw new BadRequestError('Error in reCAPTCHA verification');
+      } catch (error) {
+        console.error('Network error:', error);
       }
-    } catch (error) {
-      console.error('Network error:', error);
     }
-
     const jwtuser = jwt.sign(
       {
         id: user.id,
