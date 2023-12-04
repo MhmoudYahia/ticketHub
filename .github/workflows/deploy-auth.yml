@@ -12,7 +12,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
     - run: cd auth && docker build mahmoudyahia/auth .
     - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       env: 
