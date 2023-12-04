@@ -51,11 +51,12 @@ To run the app in development environment, make sure Docker, Kubernetes and Skaf
 Before running the app environment variables inside the Kubernetes cluster must be set. Execute commands below to set these environment variables:
 
 ```bash
-# kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=<your_stripe_key>
+# kubectl create secret generic paypal-secret --from-literal=PAYPAL_CLIENT_ID=<your_paypal_key>
+
+# kubectl create secret generic paypal-secret2 --from-literal=PAYPAL_CLIENT_SECRET=<your_paypal_secret_key>
 
 # kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<your_jwt_key>
 
-# kubectl create secret generic sendgrid-api-key --from-literal=SENDGRID_API_KEY=<your_sendgrid_key>
 ```
 
 Be sure to expose the ingress-nginx-controller with:
@@ -83,7 +84,7 @@ Start the app with `skaffold dev`.
 <hr>
 
 # Microservices
-## Common NPM Module
+### 1️⃣⚙️ Common NPM Module
 
 All the commonly used classes, interfaces and middlewares, etc. are extracted into a published NPM Module.    
 
@@ -93,72 +94,72 @@ All the commonly used classes, interfaces and middlewares, etc. are extracted in
 
 <hr>
 
-## Client Service
+### 2️⃣⚙️ Client Service
 
 The Client Service is a front-end microservice developed using Next.js, a React framework for building web applications. This service focuses on providing a user-friendly and interactive interface for the application. It communicates with the back-end microservices to fetch and display data, handle user authentication, and facilitate seamless interactions. 
 - Ensure that the `NEXT_PUBLIC_PAYPAL_CLIENT_ID` and `ReCAPTCHA_SITEKEY` environment variables are defined.
 
 <hr>
 
-## Kubernetes Infrastructure
+### Kubernetes Infrastructure
 
 The Kubernetes infrastructure for the application consists of various deployment files (YAML) that define the configuration for deploying microservices, databases, and other components. This setup enables the orchestration and management of containers in a Kubernetes cluster.
 
-## Deployment Files
+### Deployment Files
 
-### 1. `auth-depl.yaml`
+#### 1. `auth-depl.yaml`
 
 - Deployment configuration for the authentication service.
 
-### 2. `auth-mongo-depl.yaml`
+#### 2. `auth-mongo-depl.yaml`
 
 - Deployment configuration for the MongoDB database used by the authentication service.
 
-### 3. `client-depl.yaml`
+#### 3. `client-depl.yaml`
 
 - Deployment configuration for the Next.js-based client service.
 
-### 4. `expiration-depl.yaml`
+#### 4. `expiration-depl.yaml`
 
 - Deployment configuration for the expiration service.
 
-### 5. `expiration-redis-depl.yaml`
+#### 5. `expiration-redis-depl.yaml`
 
 - Deployment configuration for the Redis instance used by the expiration service.
 
-### 6. `ingress-srv.yaml`
+#### 6. `ingress-srv.yaml`
 
 - Configuration for the Ingress service, enabling external access to the deployed microservices.
 
-### 7. `nats-depl.yaml`
+#### 7. `nats-depl.yaml`
 
 - Deployment configuration for the NATS Streaming Server, used for event-driven communication between microservices.
 
-### 8. `orders-depl.yaml`
+#### 8. `orders-depl.yaml`
 
 - Deployment configuration for the orders service.
 
-### 9. `orders-mongo-depl.yaml`
+#### 9. `orders-mongo-depl.yaml`
 
 - Deployment configuration for the MongoDB database used by the orders service.
 
-### 10. `payments-depl.yaml`
+#### 10. `payments-depl.yaml`
 
 - Deployment configuration for the payments service.
 
-### 11. `payments-mongo-depl.yaml`
+#### 11. `payments-mongo-depl.yaml`
 
 - Deployment configuration for the MongoDB database used by the payments service.
 
-### 12. `tickets-depl.yaml`
+#### 12. `tickets-depl.yaml`
 
 - Deployment configuration for the tickets service.
 
-### 13. `tickets-mongo-depl.yaml`
+#### 13. `tickets-mongo-depl.yaml`
 
 - Deployment configuration for the MongoDB database used by the tickets service.
 
-## Usage
+### Usage
 
 1. Apply the Kubernetes deployment files using the `kubectl apply` command. For example:
 
@@ -166,10 +167,10 @@ The Kubernetes infrastructure for the application consists of various deployment
    kubectl apply -f auth-depl.yaml
 
   
-## Auth Servive
+### 3️⃣⚙️ Auth Servive
 The Auth Service is a microservice within the larger application responsible for handling user authentication-related functionalities. It employs TypeScript for strong typing, Node.js with Express.js for building the server and MongoDB for storing user data. The service utilizes JSON Web Tokens `(JWT)` for secure and stateless authentication, providing a scalable solution in a microservices architecture. It includes various routes for user sign-up, sign-in, sign-out, and other authentication-related operations. 
 
-## Project Structure
+#### Project Structure
 
 - **src**: The source code directory containing the main application logic.
   - **models**: Defines the TypeScript data model for user entities (`user.ts`).
@@ -200,45 +201,45 @@ The Auth Service is a microservice within the larger application responsible for
 
 - **package.json**: Configuration file that includes project metadata, dependencies, and scripts.
 
-## Routes
+### Routes
 
-### 1. Sign-up
+#### 1. Sign-up
 
 - **Path**: `/api/users/signup`
 - **Method**: `POST`
 - **Description**: Allows users to create a new account. It handles `google-recaptcha`.
 
-### 2. Sign-in
+#### 2. Sign-in
 
 - **Path**: `/api/users/signin`
 - **Method**: `POST`
 - **Description**: Allows users to sign in to their accounts.
 
-### 3. Sign-out
+#### 3. Sign-out
 
 - **Path**: `/api/users/signout`
 - **Method**: `POST`
 - **Description**: Allows users to sign out of their accounts.
 
-### 4. Current User
+#### 4. Current User
 
 - **Path**: `/api/users/currentUser`
 - **Method**: `GET`
 - **Description**: Retrieves information about the currently authenticated user.
 
-### 5. Change Password
+#### 5. Change Password
 
 - **Path**: `/api/users/changePassword`
 - **Method**: `POST`
 - **Description**: Allows users to change their account password.
 
-### 6. Google OAuth
+#### 6. Google OAuth
 
 - **Path**: `/api/users/requestOauth-google`
 - **Method**: `POST`
 - **Description**: Handles Google OAuth authentication.
 
-### 7. Update User
+#### 7. Update User
 
 - **Path**: `/api/users/update`
 - **Method**: `PATCH`
@@ -248,11 +249,11 @@ The Auth Service provides a comprehensive set of routes to manage user authentic
 
 <hr>
 
-## Orders Service
+### 4️⃣⚙️Orders Service
 
 The Orders Service is a microservice designed to manage the lifecycle of orders within the larger application. It is implemented using TypeScript and Node.js with Express.js. The service incorporates event-driven programming with the help of NATS Streaming Server for handling events related to order creation, cancellation, and payment processing. Below is a detailed overview of the project structure, key files, and the exposed routes.
 
-## Project Structure
+#### Project Structure
 
 - **src**: The source code directory containing the main application logic.
   - **__mocks__**: Mock files for testing purposes.
@@ -300,73 +301,73 @@ The Orders Service is a microservice designed to manage the lifecycle of orders 
 
 - **tsconfig.json**: TypeScript configuration file.
 
-## Routes
+### Routes
 
-### 1. New Order
+#### 1. New Order
 
 - **Path**: `/api/orders`
 - **Method**: `POST`
 - **Description**: Creates a new order for purchasing a specified ticket.
 
-### 2. Show Order
+#### 2. Show Order
 
 - **Path**: `/api/orders/:orderId`
 - **Method**: `GET`
 - **Description**: Retrieves details about a specific order.
 
-### 3. Delete Order
+#### 3. Delete Order
 
 - **Path**: `/api/orders/:orderId`
 - **Method**: `DELETE`
 - **Description**: Cancels a specific order.
 
-### 4. Index (All Orders)
+#### 4. Index (All Orders)
 
 - **Path**: `/api/orders`
 - **Method**: `GET`
 - **Description**: Retrieves all active orders for the given user making the request.
 
-## Event Publishers
+### Event Publishers
 
-### 1. Order Cancelled Publisher
+#### 1. Order Cancelled Publisher
 
 - **File**: `order-cancelled-publisher.ts`
 - **Description**: Publishes an event when an order is cancelled.
 
-### 2. Order Created Publisher
+#### 2. Order Created Publisher
 
 - **File**: `order-created-publisher.ts`
 - **Description**: Publishes an event when a new order is created.
 
-## Event Listeners
+### Event Listeners
 
-### 1. Expiration Completed Listener
+#### 1. Expiration Completed Listener
 
 - **File**: `expiration-completed-listener.ts`
 - **Description**: Listens for the expiration completed event.
 
-### 2. Payment Created Listener
+#### 2. Payment Created Listener
 
 - **File**: `payment-created-listener.ts`
 - **Description**: Listens for the payment created event.
 
-### 3. Ticket Created Listener
+#### 3. Ticket Created Listener
 
 - **File**: `ticket-created-listener.ts`
 - **Description**: Listens for the ticket created event.
 
-### 4. Ticket Updated Listener
+#### 4. Ticket Updated Listener
 
 - **File**: `ticket-updated-listener.ts`
 - **Description**: Listens for the ticket updated event.
 
 The Orders Service provides routes to manage the lifecycle of orders, including creating new orders, retrieving order details, canceling orders, and fetching all active orders for a user. The service is structured to handle events related to order creation, cancellation, and payment processing in an event-driven architecture.
 
-# Tickets Service
+### 5️⃣⚙️ Tickets Service
 
 The Tickets Service is a microservice responsible for managing ticket-related operations within the larger application. It utilizes TypeScript and Node.js with Express.js for server-side logic and NATS Streaming Server for event-driven communication. The service includes routes for creating, updating, and retrieving ticket information. Additionally, it implements event publishers and listeners to communicate with other microservices.
 
-## Project Structure
+#### Project Structure
 
 - **src**: The source code directory containing the main application logic.
   - **__mocks__**: Mock files for testing purposes.
@@ -411,54 +412,54 @@ The Tickets Service is a microservice responsible for managing ticket-related op
 
 - **tsconfig.json**: TypeScript configuration file.
 
-## Routes
+### Routes
 
-### 1. New Ticket
+#### 1. New Ticket
 
 - **Path**: `/api/tickets/new`
 - **Method**: `POST`
 - **Description**: Creates a new ticket.
 - **Request Body**: `{ "title": "Ticket Title", "price": "Ticket Price" }`
 
-### 2. Show Ticket
+#### 2. Show Ticket
 
 - **Path**: `/api/tickets/:id`
 - **Method**: `GET`
 - **Description**: Retrieves details about a specific ticket.
 
-### 3. Update Ticket
+#### 3. Update Ticket
 
 - **Path**: `/api/tickets/:id`
 - **Method**: `PUT`
 - **Description**: Updates information about a specific ticket.
 - **Request Body**: `{ "title": "New Title", "price": "New Price" }`
 
-### 4. Index (All Tickets)
+#### 4. Index (All Tickets)
 
 - **Path**: `/api/tickets`
 - **Method**: `GET`
 - **Description**: Retrieves all tickets.
 
-## Event Publishers
+### Event Publishers
 
-### 1. Ticket Created Publisher
+#### 1. Ticket Created Publisher
 
 - **File**: `ticket-created-publisher.ts`
 - **Description**: Publishes an event when a new ticket is created.
 
-### 2. Ticket Updated Publisher
+#### 2. Ticket Updated Publisher
 
 - **File**: `ticket-updated-publisher.ts`
 - **Description**: Publishes an event when a ticket is updated.
 
-## Event Listeners
+### Event Listeners
 
-### 1. Order Cancelled Listener
+#### 1. Order Cancelled Listener
 
 - **File**: `order-cancelled-listener.ts`
 - **Description**: Listens for the order cancelled event.
 
-### 2. Order Created Listener
+#### 2. Order Created Listener
 
 - **File**: `order-created-listener.ts`
 - **Description**: Listens for the order created event.
@@ -467,11 +468,11 @@ The Tickets Service provides routes to manage the creation, updating, and retrie
 
 <hr>
 
-# Payments Service
+### 6️⃣⚙️ Payments Service
 
 The Payments Service is a microservice responsible for handling payment-related operations within the larger application. It utilizes TypeScript and Node.js with Express.js for server-side logic, and it integrates with PayPal for processing payments. The service includes routes for creating and capturing orders, and it implements event publishers and listeners for seamless communication with other microservices.
 
-## Project Structure
+#### Project Structure
 
 - **src**: The source code directory containing the main application logic.
   - **__mocks__**: Mock files for testing purposes.
@@ -509,7 +510,7 @@ The Payments Service is a microservice responsible for handling payment-related 
 
 - **tsconfig.json**: TypeScript configuration file.
 
-## PayPal Integration
+### 💰💲💵 PayPal Integration
 
 The Payments Service integrates with PayPal to process payments securely. Below is a detailed explanation of the PayPal integration workflow, functions, and routes:
 
@@ -579,28 +580,28 @@ The Payments Service integrates with PayPal to process payments securely. Below 
         2. The function makes a request to the PayPal API (`/v2/checkout/orders/:paypalId/capture`) to capture the payment.
         3. The function returns the captured payment details.
            
-## Event Listeners
+#### Event Listeners
 
-### 1. Order Cancelled Listener
+#### 1. Order Cancelled Listener
 
 - **File**: `order-cancelled-event.ts`
 - **Description**: Listens for the order cancelled event.
 
 
-### 2. Order Created Listener
+#### 2. Order Created Listener
 
 - **File**: `order-created-listener.ts`
 - **Description**: Listens for the order created event.
 
 
-## Event Publishers
+#### Event Publishers
 
-### 1. Payment Created Publisher
+#### 1. Payment Created Publisher
 
 - **File**: `payment-created-publisher.ts`
 - **Description**: Publishes an event when a payment is created.
 
-### Important Notes
+#### Important Notes
 
 - The event listeners and publishers enable seamless communication between the Payments Service and other microservices, ensuring a coordinated flow of information.
 
@@ -610,11 +611,11 @@ The Payments Service facilitates payment processing by integrating with PayPal. 
 
 <hr>
 
-# Expiration Service
+### 7️⃣⚙️ Expiration Service
 
 The Expiration Service is a microservice dedicated to handling the expiration of orders within the larger application. It utilizes TypeScript and Node.js with Bull for queue management and integrates with NATS Streaming Server for event-driven communication. The service includes event listeners, publishers, and a dedicated expiration queue to process background tasks efficiently.
 
-## Project Structure
+### Project Structure
 
 - **src**: The source code directory containing the main application logic.
   - **__mocks__**: Mock files for testing purposes.
@@ -640,28 +641,28 @@ The Expiration Service is a microservice dedicated to handling the expiration of
 
 - **tsconfig.json**: TypeScript configuration file.
 
-## Event Listeners
+#### Event Listeners
 
-### 1. Order Created Listener
+#### 1. Order Created Listener
 
 - **File**: `order-created-listener.ts`
 - **Description**: Listens for the order created event.
 
-### 2. Queue Group Name
+#### 2. Queue Group Name
 
 - **File**: `queue-group-name.ts`
 - **Description**: Defines the queue group name for event listeners.
 - 
-## Event Publishers
+#### Event Publishers
 
-### 1. Expiration Completed Publisher
+#### 1. Expiration Completed Publisher
 
 - **File**: `expiration-completed-publisher.ts`
 - **Description**: Publishes an event when the order expiration process is completed.
 
-## Queues
+#### Queues
 
-### 1. Expiration Queue
+#### 1. Expiration Queue
 
 - **File**: `expiration-queue.ts`
 - **Description**: Manages background job processing related to order expiration using Bull.
@@ -676,7 +677,7 @@ The Expiration Service is a microservice dedicated to handling the expiration of
         2. Tasks are added to the queue when an order is created.
         3. The processing logic handles the completion of the order expiration process and triggers the `Expiration Completed Publisher` to notify other microservices.
 
-## Important Notes
+### Important Notes
 
 - The Expiration Service plays a crucial role in managing the expiration of orders within the application.
 
