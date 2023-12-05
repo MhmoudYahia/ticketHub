@@ -137,3 +137,7 @@ body {
     top: 64px;
   }
 }
+
+a {
+  text-decoration: none !important;
+}
