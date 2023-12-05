@@ -84,6 +84,8 @@ Start the app with `skaffold dev`.
 <hr>
 
 # Microservices
+![image](https://github.com/MhmoudYahia/ticketHub/assets/94763036/0d41fc3c-97b4-426c-bbb5-c5dceda5d85b)
+
 ### 1️⃣⚙️ Common NPM Module
 
 All the commonly used classes, interfaces and middlewares, etc. are extracted into a published NPM Module.    
