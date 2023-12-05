@@ -83,27 +83,10 @@ Start the app with `skaffold dev`.
 
 <hr>
 
-# Microservices
+## ⚙️ Kubernetes Infrastructure
+
 ![image](https://github.com/MhmoudYahia/ticketHub/assets/94763036/0d41fc3c-97b4-426c-bbb5-c5dceda5d85b)
 
-### 1️⃣⚙️ Common NPM Module
-
-All the commonly used classes, interfaces and middlewares, etc. are extracted into a published NPM Module.    
-
-- `@m-ticketing/common`: [See the code](https://www.npmjs.com/package/@m-ticketing/common?activeTab=code)
-
-  Contains commonly used Middlewares and Error Classes for ticketing microservices   
-
-<hr>
-
-### 2️⃣⚙️ Client Service
-
-The Client Service is a front-end microservice developed using Next.js, a React framework for building web applications. This service focuses on providing a user-friendly and interactive interface for the application. It communicates with the back-end microservices to fetch and display data, handle user authentication, and facilitate seamless interactions. 
-- Ensure that the `NEXT_PUBLIC_PAYPAL_CLIENT_ID` and `ReCAPTCHA_SITEKEY` environment variables are defined.
-
-<hr>
-
-### Kubernetes Infrastructure
 
 The Kubernetes infrastructure for the application consists of various deployment files (YAML) that define the configuration for deploying microservices, databases, and other components. This setup enables the orchestration and management of containers in a Kubernetes cluster.
 
@@ -168,6 +151,55 @@ The Kubernetes infrastructure for the application consists of various deployment
    ```bash
    kubectl apply -f auth-depl.yaml
 
+<hr>
+
+# 🚀📱📸 Screenshots
+### Signup
+![signup ](https://github.com/MhmoudYahia/ticketHub/assets/94763036/a1220e09-e068-4c2c-a45d-2e0030aa2e0f)
+### Signin
+![signin](https://github.com/MhmoudYahia/ticketHub/assets/94763036/d14e68a0-9a35-4646-9e98-5810554c1202)
+### Home
+![home](https://github.com/MhmoudYahia/ticketHub/assets/94763036/f6d10c41-1dcf-4c14-9343-da00f181155c)
+### Ticket 
+![ticket](https://github.com/MhmoudYahia/ticketHub/assets/94763036/868b4537-85bd-40bc-86f3-705c4cf31bef)
+### Ticket Purchased, Order Created
+![order created - ticket purchased](https://github.com/MhmoudYahia/ticketHub/assets/94763036/2c57af0d-bbe5-4785-80ca-f3cb5567bb49)
+### Purchase The Ticket Using Paypal
+![complete order using paypal](https://github.com/MhmoudYahia/ticketHub/assets/94763036/797644c7-f432-481b-b54b-266c0382f288)
+### My Orders
+![orders](https://github.com/MhmoudYahia/ticketHub/assets/94763036/e9a33a20-5509-4c0f-923f-52be28359620)
+### Sell Tickets
+![sell ticket](https://github.com/MhmoudYahia/ticketHub/assets/94763036/db813338-1239-4db1-8873-3066d271097f)
+### Profile
+![profile](https://github.com/MhmoudYahia/ticketHub/assets/94763036/6db99c03-a24b-4d7b-95c8-f1bb8334d713)
+### Update Profile 
+![change my data](https://github.com/MhmoudYahia/ticketHub/assets/94763036/d666d63b-ee2a-474f-8ff8-a1b307fba7c8)
+### Change Password
+![change password](https://github.com/MhmoudYahia/ticketHub/assets/94763036/6c49eae6-bf13-407d-9729-168112191c20)
+### Sign to tickets.dev Using Google
+![sign with google](https://github.com/MhmoudYahia/ticketHub/assets/94763036/d0d1f8a6-a3b2-405d-9706-d50773aab148)
+### Events Workflow Example
+![services logging events](https://github.com/MhmoudYahia/ticketHub/assets/94763036/55fd9ac5-6c43-49cf-9916-fc90f2f97b16)
+
+<hr>
+
+# 🚀 Microservices
+### 1️⃣⚙️ Common NPM Module
+
+All the commonly used classes, interfaces and middlewares, etc. are extracted into a published NPM Module.    
+
+- `@m-ticketing/common`: [See the code](https://www.npmjs.com/package/@m-ticketing/common?activeTab=code)
+
+  Contains commonly used Middlewares and Error Classes for ticketing microservices   
+
+<hr>
+
+### 2️⃣⚙️ Client Service
+
+The Client Service is a front-end microservice developed using Next.js, a React framework for building web applications. This service focuses on providing a user-friendly and interactive interface for the application. It communicates with the back-end microservices to fetch and display data, handle user authentication, and facilitate seamless interactions. 
+- Ensure that the `NEXT_PUBLIC_PAYPAL_CLIENT_ID` and `ReCAPTCHA_SITEKEY` environment variables are defined.
+
+<hr>
   
 ### 3️⃣⚙️ Auth Servive
 The Auth Service is a microservice within the larger application responsible for handling user authentication-related functionalities. It employs TypeScript for strong typing, Node.js with Express.js for building the server and MongoDB for storing user data. The service utilizes JSON Web Tokens `(JWT)` for secure and stateless authentication, providing a scalable solution in a microservices architecture. It includes various routes for user sign-up, sign-in, sign-out, and other authentication-related operations. 
