@@ -13,7 +13,7 @@ import {
   Link,
   Avatar,
 } from '@mui/material';
-import { LockOutlined,Google } from '@mui/icons-material';
+import { LockOutlined, Google } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { setAlertInfo, setShowAlert } from '../../redux/alertSlice';
 
@@ -31,7 +31,7 @@ const SignIn = () => {
       dispatch(
         setAlertInfo({
           severity: 'success',
-          message: 'Signed in Successfully, Wellcome!😍',
+          message: 'Signed in Successfully, Welcome!😍',
         })
       );
       dispatch(setShowAlert(true));
@@ -56,7 +56,7 @@ const SignIn = () => {
 
   return (
     <Container maxWidth="sm" sx={{ p: 3, my: 5 }}>
-      <Grid container sx={{ 'justify-content': 'center', gap: '70px' }}>
+      <Grid container sx={{ justifyContent: 'center', gap: '70px' }}>
         <Grid item xs={10} md={6}>
           <img
             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
@@ -76,7 +76,7 @@ const SignIn = () => {
             <LockOutlined />
           </Avatar>
           <Typography
-            component="h1"
+            component="div" // Set the component prop to a div
             variant="h5"
             style={{
               fontWeight: 600,

@@ -134,7 +134,7 @@ const Orders = ({ orders }) => {
         variant="h4"
         textAlign="center"
         marginTop="50px"
-        color="cornflowerblue"
+        color="#1976d2"
         marginBottom="50px"
         sx={{ textDecoration: 'underline' }}
       >

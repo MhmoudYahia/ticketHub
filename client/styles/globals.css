@@ -1,5 +1,7 @@
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  background-image: linear-gradient(to top, #71dcce 0%, #53dfed 100%);
+    height: 100vh;
 }
 * {
   font-family: 'Roboto', sans-serif;

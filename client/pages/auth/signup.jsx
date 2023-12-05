@@ -72,8 +72,8 @@ const SignUp = ({}) => {
           className="text-center text-md-start d-flex flex-column justify-content-center"
         >
           <Typography
+            component="div" // Set the component prop to "div"
             variant="h3"
-            component="h1"
             gutterBottom
             className="my-5 display-3 fw-bold ls-tight px-3"
             sx={{ color: 'hsl(218, 81%, 95%)' }}
@@ -84,7 +84,7 @@ const SignUp = ({}) => {
               variant="h3"
               sx={{ color: 'hsl(218, 81%, 75%)' }}
             >
-              for your business
+              for your tickets
             </Typography>
           </Typography>
 
@@ -94,10 +94,12 @@ const SignUp = ({}) => {
             className="px-3"
             sx={{ color: 'hsl(218, 81%, 85%)' }}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
-            itaque accusantium odio, soluta, corrupti aliquam quibusdam tempora
-            at cupiditate quis eum maiores libero veritatis? Dicta facilis sint
-            aliquid ipsum atque?
+            Welcome to TicketHub! Immerse yourself in a world of live
+            experiences. Secure your tickets effortlessly and become part of a
+            thriving community of event enthusiasts. Ready to elevate your
+            event-going experience? Sign up now to unlock exclusive access,
+            personalized recommendations, and a seamless journey through the
+            vibrant landscape of live entertainment!
           </Typography>
         </Grid>
 
@@ -131,8 +133,7 @@ const SignUp = ({}) => {
                 <LockOutlined />
               </Avatar>
               <Typography
-                component="h1"
-                variant="h5"
+                variant="p"
                 style={{
                   fontWeight: 600,
                   color: '#1976d2',
