@@ -19,6 +19,7 @@ The project is a modern web application employing microservices architecture wit
 - ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=flat&logo=mongodb&logoColor=white)
 - ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=flate&logo=redis&logoColor=white)
 - ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=flat&logo=jest&logoColor=white)
+- ![SuperTest](https://img.shields.io/badge/SuperTest-3178C6?style=flat&logo=node.js&logoColor=white)
 - ![JWT](https://img.shields.io/badge/JWT-black?style=flat&logo=JSON%20web%20tokens)
 - ![Npm](https://img.shields.io/badge/-npm-CB3837?style=flat&logo=npm)
 - ![NATS Streaming Server](https://img.shields.io/badge/NATS%20Streaming%20Server-222222?style=flat&logo=nats&logoColor=76D0C1)
